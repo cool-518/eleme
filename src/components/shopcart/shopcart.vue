@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="ball-container">
-        <div v-for="ball in balls">
+        <div v-for="(ball,index) in balls" :key='index'>
           <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
             <div class="ball" v-show="ball.show">
               <div class="inner inner-hook"></div>
@@ -35,7 +35,7 @@
           </div>
           <div class="list-content" ref="listContent">
             <ul>
-              <li class="food" v-for="food in selectFoods">
+              <li class="food" v-for="(food,index) in selectFoods" :key='index'>
                 <span class="name">{{food.name}}</span>
                 <div class="price">
                   <span>￥{{food.price*food.count}}</span>
@@ -63,7 +63,7 @@
     props: {
       selectFoods: {
         type: Array,
-        default() {
+        default () {
           return [
             {
               price: 10,
@@ -81,7 +81,7 @@
         default: 0
       }
     },
-    data() {
+    data () {
       return {
         balls: [
           {
@@ -105,21 +105,21 @@
       };
     },
     computed: {
-      totalPrice() {
+      totalPrice () {
         let total = 0;
         this.selectFoods.forEach((food) => {
           total += food.price * food.count;
         });
         return total;
       },
-      totalCount() {
+      totalCount () {
         let count = 0;
         this.selectFoods.forEach((food) => {
           count += food.count;
         });
         return count;
       },
-      payDesc() {
+      payDesc () {
         if (this.totalPrice === 0) {
           return `￥${this.minPrice}元起送`;
         } else if (this.totalPrice < this.minPrice) {
@@ -129,14 +129,14 @@
           return '去结算';
         }
       },
-      payClass() {
+      payClass () {
         if (this.totalPrice < this.minPrice) {
           return 'not-enough';
         } else {
           return 'enough';
         }
       },
-      listShow() {
+      listShow () {
         if (!this.totalCount) {
           this.fold = true;
           return false;
@@ -157,7 +157,7 @@
       }
     },
     methods: {
-      drop(el) {
+      drop (el) {
         for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i];
           if (!ball.show) {
@@ -168,30 +168,30 @@
           }
         }
       },
-      toggleList() {
+      toggleList () {
         if (!this.totalCount) {
           return;
         }
         this.fold = !this.fold;
       },
-      hideList() {
+      hideList () {
         this.fold = true;
       },
-      empty() {
+      empty () {
         this.selectFoods.forEach((food) => {
           food.count = 0;
         });
       },
-      pay() {
+      pay () {
         if (this.totalPrice < this.minPrice) {
           return;
         }
         window.alert(`支付${this.totalPrice}元`);
       },
-      addFood(target) {
+      addFood (target) {
         this.drop(target);
       },
-      beforeDrop(el) {
+      beforeDrop (el) {
         let count = this.balls.length;
         while (count--) {
           let ball = this.balls[count];
@@ -208,19 +208,19 @@
           }
         }
       },
-      dropping(el, done) {
+      dropping (el, done) {
         /* eslint-disable no-unused-vars */
         let rf = el.offsetHeight;
         this.$nextTick(() => {
-          el.style.webkitTransform = 'translate3d(0,0,0)';
-          el.style.transform = 'translate3d(0,0,0)';
+          el.style.webkitTransform = 'translate3d (0,0,0)';
+          el.style.transform = 'translate3d (0,0,0)';
           let inner = el.getElementsByClassName('inner-hook')[0];
-          inner.style.webkitTransform = 'translate3d(0,0,0)';
+          inner.style.webkitTransform = 'translate3d (0,0,0)';
           inner.style.transform = 'translate3d(0,0,0)';
           el.addEventListener('transitionend', done);
         });
       },
-      afterDrop(el) {
+      afterDrop (el) {
         let ball = this.dropBalls.shift();
         if (ball) {
           ball.show = false;

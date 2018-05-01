@@ -12,6 +12,7 @@
         <div class="description">
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
+        <!-- 因为从后台取数据是一个异步过程，seller.supports（商家活动）一开始为空，则support[0]会报错，所以要先判断 -->
         <div v-if="seller.supports" class="support">
           <span class="icon" :class="classMap[seller.supports[0].type]"></span>
           <span class="text">{{seller.supports[0].description}}</span>
@@ -43,7 +44,7 @@
               <div class="line"></div>
             </div>
             <ul v-if="seller.supports" class="supports">
-              <li class="support-item" v-for="(item,index) in seller.supports">
+              <li class="support-item" v-for="(item,index) in seller.supports" :key="index">
                 <span class="icon" :class="classMap[seller.supports[index].type]"></span>
                 <span class="text">{{seller.supports[index].description}}</span>
               </li>
@@ -67,11 +68,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-import star from "components/star/star";
+// 引入星星组件
+import star from 'components/star/star';
 
 export default {
   props: {
     seller: {
+      // 验证是否为对象，不是则发出警告
       type: Object
     }
   },
@@ -89,7 +92,7 @@ export default {
     }
   },
   created() {
-    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
   },
   components: {
     star
@@ -97,7 +100,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang='stylus' rel="stylesheet/stylus">
 @import '../../common/stylus/mixin';
 
 .header {
@@ -112,6 +115,7 @@ export default {
     font-size: 0;
 
     .avatar {
+      // 设置inline-block使之横向排列
       display: inline-block;
       vertical-align: top;
 
@@ -126,7 +130,6 @@ export default {
 
       .title {
         margin: 2px 0 8px 0;
-
         .brand {
           display: inline-block;
           vertical-align: top;
@@ -136,7 +139,6 @@ export default {
           background-size: 30px 18px;
           background-repeat: no-repeat;
         }
-
         .name {
           margin-left: 6px;
           font-size: 16px;
@@ -204,7 +206,7 @@ export default {
         vertical-align: top;
         font-size: 10px;
       }
-
+// 字体图标
       .icon-keyboard_arrow_right {
         margin-left: 2px;
         line-height: 24px;

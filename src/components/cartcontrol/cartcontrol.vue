@@ -1,16 +1,16 @@
 <template>
-  <div class="cartcontrol">
-    <transition name="move">
-      <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart">
-        <span class="inner icon-remove_circle_outline"></span>
+  <div class='cartcontrol'>
+    <transition name='move'>
+      <div class='cart-decrease' v-show='food.count>0' @click.stop.prevent='decreaseCart'>
+        <span class='inner icon-remove_circle_outline'></span>
       </div>
     </transition>
-    <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add icon-add_circle" @click.stop.prevent="addCart"></div>
+    <div class='cart-count' v-show='food.count>0'>{{food.count}}</div>
+    <div class='cart-add icon-add_circle' @click.stop.prevent='addCart'></div>
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type='text/ecmascript-6'>
   import Vue from 'vue';
 
   export default {
@@ -43,7 +43,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang='stylus' rel='stylesheet/stylus'>
   .cartcontrol
     font-size: 0
     .cart-decrease

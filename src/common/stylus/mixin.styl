@@ -1,3 +1,4 @@
+// 这里的都表示函数；$后面的表示参数
 border-1px($color)
   position: relative
   &:after
@@ -12,7 +13,7 @@ border-1px($color)
 border-none()
   &:after
     display: none
-
+// DPR = 设备像素 / CSS像素(某一方向上)
 bg-image($url)
   background-image: url($url + "@2x.png")
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)

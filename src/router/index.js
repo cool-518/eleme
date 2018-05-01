@@ -22,6 +22,6 @@ const routes = [{
 
 export default new Router({
   // 给router-link 的 v-link-active添加别名
-    linkActiveClass: 'active',
-    routes
+  linkActiveClass: 'active',
+  routes
 });
